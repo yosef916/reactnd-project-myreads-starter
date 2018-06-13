@@ -15,6 +15,13 @@ class BooksApp extends React.Component {
     // showSearchPage: false
   }
 
+//ADD componentDidMount TO REQUEST ALL THE BOOKS.
+  componentDidMount (){
+   BooksAPI.getAll().then((books) => {
+     console.log(books);
+   })
+ }
+
 //CREATE 2 ROUTES. THE FIRST ONE TO SHOW THE MYREAD PAGE. THE SECOND ONE TO SHOW THE SEARCH PAGE.
   render() {
     return (
