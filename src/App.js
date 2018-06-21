@@ -2,6 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import AllShelves from './AllShelves'
+import findBooks from './BooksSearch'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
