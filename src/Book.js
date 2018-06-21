@@ -12,7 +12,8 @@ class Book extends Component {
           { !this.props.book.imageLinks ?
             <div className="book-cover" style={{ width: 128, height: 193 }}></div> :             
             <div className="book-cover" style={{ width: 128, height: 193,
-              background: `url(${this.props.book.imageLinks.thumbnail})` }}></div>
+              background: `url(${this.props.book.imageLinks.thumbnail})` }}>
+            </div>
           }
         <div className="book-shelf-changer">
           <select id="select-shelf" value={ this.props.book.shelf }></select>
@@ -27,4 +28,3 @@ class Book extends Component {
 }
 
 export default Book
-//, backgroundImage: `url(${this.props.book.imageLinks.thumbnail})`

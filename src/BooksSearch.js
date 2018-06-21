@@ -4,7 +4,7 @@ import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import './App.css'
 
-class findBooks extends Component {
+class BooksSearch extends Component {
 	state = {
 		query: ''
 	}
@@ -35,4 +35,4 @@ class findBooks extends Component {
 	}
 }
 
-export default findBooks
+export default BooksSearch
