@@ -11,21 +11,29 @@ class BooksSearch extends Component {
 
 	updateQuery = (query) => {
 		this.setState({ query: query.trim() })
+	  this.searchResult(this.state.query)
+	}
+
+	searchResult = (query) => {
+		BooksAPI.search(query, 20).then(
+			response => {
+				console.log(response)
+			}
+		)
 	}
 
 	render() {
-    {this.state.query}
+    const { query } = this.state.query
 
 		return(
 			<div className='search-books'>
-			{this.state.query}
         <div className='search-books-bar'>
           <Link to='/' className='close-search'></Link>
           <div className='search-books-input-wrapper'>
             <input 
               type='text'
               placeholder='Search by title or author'
-              value={this.state.query}
+              value={query}
               onChange={(event) => this.updateQuery(event.target.value)}
           	/>
         	</div>
