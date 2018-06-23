@@ -6,7 +6,7 @@ import './App.css'
 
 class BooksSearch extends Component {
 	state = {
-		query: ''
+		query: '', result: []
 	}
 
 	updateQuery = (query) => {
@@ -15,11 +15,14 @@ class BooksSearch extends Component {
 	}
 
 	searchResult = (query) => {
-		BooksAPI.search(query, 20).then(
+		if (BooksAPI.search(query, 20)) {
 			response => {
-				console.log(response)
+				this.setState({ result: response })
 			}
-		)
+		} else { error  => {
+      	this.setState({ result: [] })
+    	}
+  	}
 	}
 
 	render() {
@@ -28,7 +31,7 @@ class BooksSearch extends Component {
 		return(
 			<div className='search-books'>
         <div className='search-books-bar'>
-          <Link to='/' className='close-search'></Link>
+          <Link to='/' className='close-search'>Close</Link>
           <div className='search-books-input-wrapper'>
             <input 
               type='text'
@@ -38,6 +41,13 @@ class BooksSearch extends Component {
           	/>
         	</div>
     		</div>
+	      <div className="search-books-results">
+	        <ol className="books-grid">
+	        	{ this.state.result.map((book) => (
+	        			<Book key={book.id} book={book}/>
+	      		))}        	
+	        </ol>
+	      </div>
   		</div>
 		)
 	}

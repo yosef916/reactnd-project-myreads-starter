@@ -22,7 +22,7 @@ class BooksApp extends React.Component {
   componentDidMount () {
     BooksAPI.getAll().then((books) => {
       this.setState({ booksAr: books })
-      console.log(this.state)
+      // console.log(this.state)
     })
   }
 
@@ -41,9 +41,7 @@ class BooksApp extends React.Component {
               <AllShelves booksAr={ this.state.booksAr }/>
             </div>
             <div className="open-search">
-              <Link to='/search'>
-                Add a book
-              </Link>
+              <Link to='/search'></Link>
             </div>
           </div>
         )}/>
@@ -55,9 +53,6 @@ class BooksApp extends React.Component {
               <div>
                 <BooksSearch />
               </div>
-            </div>
-            <div className="search-books-results">
-              <ol className="books-grid"></ol>
             </div>
           </div>
         )}/>
