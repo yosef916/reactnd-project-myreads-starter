@@ -10,19 +10,29 @@ class BooksSearch extends Component {
 	}
 
 	updateQuery = (query) => {
-		this.setState({ query: query.trim() })
-	  this.searchResult(this.state.query)
+	  if (query) {
+	  	this.setState({ query: query.trim() })
+  		this.searchResult(this.state.query)
+	  } else {
+	  	this.setState({ result: [] })
+	  	console.log(this.state.result)
+	  }
 	}
 
 	searchResult = (query) => {
-		if (BooksAPI.search(query, 20)) {
-			response => {
-				this.setState({ result: response })
+		BooksAPI.search(query, 20).then(
+			serverOutcome => {
+				if (!serverOutcome){
+					this.setState({ result: [] })
+					// console.log(this.state.result)
+				} else if (serverOutcome) {
+					this.setState({ result: serverOutcome })
+					// this.setState({ result: [] })
+				}
+			},	error  => {
+				this.setState({ result: [] })
 			}
-		} else { error  => {
-      	this.setState({ result: [] })
-    	}
-  	}
+  	)
 	}
 
 	render() {
@@ -41,13 +51,21 @@ class BooksSearch extends Component {
           	/>
         	</div>
     		</div>
-	      <div className="search-books-results">
+
 	        <ol className="books-grid">
-	        	{ this.state.result.map((book) => (
+	        	{ this.state.result.length ?
+	        		(
+	        			this.state.result.map((book) => (
 	        			<Book key={book.id} book={book}/>
-	      		))}        	
+	        			))
+	        		)
+	        		:
+	        		( 
+	        			<div>No books exits related to {query}</div>
+        			)
+          	}
 	        </ol>
-	      </div>
+
   		</div>
 		)
 	}
