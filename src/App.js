@@ -18,7 +18,7 @@ class BooksApp extends React.Component {
     // showSearchPage: false
   }
 
-//ADD componentDidMount TO REQUEST ALL THE BOOKS.
+  //ADD componentDidMount TO REQUEST ALL THE BOOKS.
   componentDidMount () {
     BooksAPI.getAll().then((books) => {
       this.setState({ booksAr: books })
@@ -26,9 +26,20 @@ class BooksApp extends React.Component {
     })
   }
 
-/*CREATE 2 ROUTES. THE FIRST ONE TO SHOW THE MYREAD PAGE. THE SECOND ONE TO SHOW THE SEARCH PAGE.
- *DEVIDE BOOKS BASED ON IT'S SHELVE NAME.
-*/
+  //
+  revision = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => {
+      book.shelf = shelf
+
+      this.setState({
+        books: this.state.booksAr.filter((b) => b.id !== book.id ).concat({ book })
+      })
+    })
+  }
+
+  /*CREATE 2 ROUTES. THE FIRST ONE TO SHOW THE MYREAD PAGE. THE SECOND ONE TO SHOW THE SEARCH PAGE.
+   *DEVIDE BOOKS BASED ON IT'S SHELVE NAME.
+  */
   render() {
     return (
       <div className="app">
@@ -38,7 +49,7 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div>
-              <AllShelves booksAr={ this.state.booksAr }/>
+              <AllShelves booksAr={ this.state.booksAr } changeShelf={ this.revision } />
             </div>
             <div className="open-search">
               <Link to='/search'></Link>
@@ -51,7 +62,7 @@ class BooksApp extends React.Component {
             <div className="search-books-bar">
               <Link to='/' className="close-search"></Link>
               <div>
-                <BooksSearch />
+                <BooksSearch booksAr={ this.state.booksAr } changeShelf={ this.revision }/>
               </div>
             </div>
           </div>

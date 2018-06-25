@@ -10,28 +10,24 @@ class BooksSearch extends Component {
 	}
 
 	updateQuery = (query) => {
+		this.setState({ query: query.trim() })
 	  if (query) {
-	  	this.setState({ query: query.trim() })
-  		this.searchResult(this.state.query)
+	  	 this.searchResult(this.state.query)
 	  } else {
 	  	this.setState({ result: [] })
-	  	console.log(this.state.result)
 	  }
 	}
 
 	searchResult = (query) => {
 		BooksAPI.search(query, 20).then(
 			serverOutcome => {
-				if (!serverOutcome){
+				if (!serverOutcome) {
 					this.setState({ result: [] })
-					// console.log(this.state.result)
 				} else if (serverOutcome) {
 					this.setState({ result: serverOutcome })
-					// this.setState({ result: [] })
 				}
-			},	error  => {
-				this.setState({ result: [] })
-			}
+			},
+			error  => { this.setState({ result: [] }) }
   	)
 	}
 
@@ -56,7 +52,7 @@ class BooksSearch extends Component {
 	        	{ this.state.result.length ?
 	        		(
 	        			this.state.result.map((book) => (
-	        			<Book key={book.id} book={book}/>
+	        			<Book key={book.id} book={book} changeShelf={this.props.changeShelf} />
 	        			))
 	        		)
 	        		:
