@@ -35,6 +35,7 @@ class BooksApp extends React.Component {
         books: this.state.booksAr.filter((b) => b.id !== book.id ).concat({ book })
       })
     })
+    this.componentDidMount ()
   }
 
   /*CREATE 2 ROUTES. THE FIRST ONE TO SHOW THE MYREAD PAGE. THE SECOND ONE TO SHOW THE SEARCH PAGE.
@@ -48,9 +49,11 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
+
             <div>
               <AllShelves booksAr={ this.state.booksAr } changeShelf={ this.revision } />
             </div>
+            
             <div className="open-search">
               <Link to='/search'></Link>
             </div>
@@ -58,16 +61,10 @@ class BooksApp extends React.Component {
         )}/>
 
         <Route exact path='/search' render= { () => (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <Link to='/' className="close-search"></Link>
-              <div>
-                <BooksSearch booksAr={ this.state.booksAr } changeShelf={ this.revision }/>
-              </div>
-            </div>
+          <div>
+            <BooksSearch booksAr={ this.state.booksAr } changeShelf={ this.revision } />
           </div>
         )}/>
-        
       </div>
     )
   }
