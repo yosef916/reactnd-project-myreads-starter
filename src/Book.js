@@ -24,7 +24,7 @@ class Book extends Component {
               { this.props.book.shelf === 'currentlyReading' ? <option value='currentlyReading'>&#10004; Currently Reading</option> : <option value="currentlyReading">Currently Reading</option>}
               { this.props.book.shelf === 'wantToRead' ? <option value='wantToRead'>&#10004; Want To Read</option> : <option value="wantToRead">Want to Read</option>}
               { this.props.book.shelf === 'read' ? <option value="read">&#10004; Read</option> : <option value="read">Read</option>}
-              { !this.props.book.shelf ? <option value="none">&#10004; None</option> : <option value="none">None</option>}
+              { !this.props.book.shelf ? <option selected value="none">&#10004; None</option> : <option value="none">None</option>}
             </select>
           </div>
         </div>
